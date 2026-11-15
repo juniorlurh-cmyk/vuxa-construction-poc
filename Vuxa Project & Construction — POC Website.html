@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Vuxa Project & Construction — Pretoria's Trusted Builder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ═══════════════════════ TOKENS ═══════════════════════ */
+:root {
+  --ink:    #0A0D14;
+  --depth:  #111520;
+  --surf:   #1A1F2E;
+  --panel:  #222736;
+  --rule:   #2D3348;
+  --amber:  #E8A020;
+  --gold:   #F5C450;
+  --white:  #EDF0F7;
+  --muted:  #9AA0B4;
+  --dim:    #5A617A;
+  --green:  #2DB87A;
+  --ff-d:   'Barlow Condensed', sans-serif;
+  --ff-b:   'Inter', sans-serif;
+  --r:      3px;
+  --r-md:   7px;
+}
+
+/* ═══════════════════════ RESET ═══════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  background:var(--ink);color:var(--white);
+  font-family:var(--ff-b);line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+body::before{
+  content:"";position:fixed;inset:0 0 auto;
+  height:env(safe-area-inset-top,0px);
+  background:var(--ink);z-index:200;
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:var(--ff-b)}
+input,select,textarea{font-family:var(--ff-b)}
+
+/* ═══════════════════════ NAV ═══════════════════════ */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding-top:env(safe-area-inset-top,0px);
+  background:transparent;border-bottom:1px solid transparent;
+  transition:background .3s,border-color .3s;
+}
+.nav.scrolled{
+  background:rgba(10,13,20,.95);border-bottom-color:var(--rule);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+}
+.nav-inner{
+  max-width:1300px;margin:0 auto;padding:0 1.5rem;
+  height:70px;display:flex;align-items:center;justify-content:space-between;
+}
+.logo{display:flex;align-items:center;gap:.625rem;cursor:pointer}
+.logo-mark{
+  width:34px;height:34px;background:var(--amber);
+  border-radius:var(--r);display:flex;align-items:center;justify-content:center;
+}
+.logo-mark svg{width:19px;height:19px;stroke:#0A0D14;fill:none;stroke-width:2.5;stroke-linecap:round}
+.logo-name{
+  font-family:var(--ff-d);font-weight:800;font-size:1.2rem;
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.logo-name em{color:var(--amber);font-style:normal}
+.nav-links{display:flex;align-items:center;gap:2rem;list-style:none}
+.nav-links a{font-size:.875rem;font-weight:500;color:var(--muted);letter-spacing:.02em;transition:color .2s}
+.nav-links a:hover{color:var(--white)}
+.nav-cta{
+  background:var(--amber);color:var(--ink)!important;
+  padding:.5rem 1.25rem;border-radius:var(--r);
+  font-weight:700;font-size:.875rem;transition:background .2s,transform .15s;
+}
+.nav-cta:hover{background:var(--gold)!important;transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:23px;height:2px;background:var(--white);border-radius:1px;transition:all .3s}
+@media(max-width:780px){
+  .nav-links{
+    display:none;position:fixed;inset:70px 0 0;background:var(--ink);
+    flex-direction:column;align-items:flex-start;padding:2rem 1.5rem;gap:1.5rem;z-index:99;
+  }
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+}
+
+/* ═══════════════════════ HERO ═══════════════════════ */
+.hero{
+  position:relative;min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;
+}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(155deg,rgba(232,160,32,.07) 0%,transparent 55%),var(--depth);z-index:0}
+.hero-bg::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(var(--rule) 1px,transparent 1px),linear-gradient(90deg,var(--rule) 1px,transparent 1px);
+  background-size:64px 64px;opacity:.25;
+}
+.hero-bg::after{
+  content:'';position:absolute;bottom:-80px;right:-60px;
+  width:560px;height:560px;
+  background:radial-gradient(circle,rgba(232,160,32,.1) 0%,transparent 68%);
+}
+.hero-body{
+  position:relative;z-index:1;
+  max-width:1300px;margin:0 auto;padding:9rem 1.5rem 4.5rem;width:100%;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-size:.7rem;font-weight:600;letter-spacing:.14em;
+  color:var(--amber);text-transform:uppercase;margin-bottom:1.75rem;
+}
+.hero-eyebrow::before{content:'';display:block;width:18px;height:1px;background:var(--amber)}
+h1.hero-h1{
+  font-family:var(--ff-d);font-weight:900;
+  font-size:clamp(4rem,10.5vw,8.5rem);
+  line-height:.93;letter-spacing:-.02em;text-transform:uppercase;
+  max-width:860px;margin-bottom:2rem;
+}
+h1.hero-h1 .a{color:var(--amber)}
+.hero-sub{
+  max-width:500px;color:var(--muted);font-size:1.0625rem;line-height:1.65;margin-bottom:2.75rem;
+}
+.hero-actions{display:flex;gap:1rem;flex-wrap:wrap}
+.btn{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-weight:700;font-size:.9375rem;padding:.875rem 1.875rem;
+  border-radius:var(--r);cursor:pointer;border:none;
+  transition:all .2s;letter-spacing:.02em;
+}
+.btn-p{background:var(--amber);color:var(--ink)}
+.btn-p:hover{background:var(--gold);transform:translateY(-2px)}
+.btn-s{background:transparent;color:var(--white);border:1px solid var(--rule)}
+.btn-s:hover{border-color:var(--muted);transform:translateY(-2px)}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── Stats strip ── */
+.stats-strip{
+  position:relative;z-index:1;border-top:1px solid var(--rule);
+  background:rgba(26,31,46,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.stats-inner{
+  max-width:1300px;margin:0 auto;padding:0 1.5rem;
+  display:grid;grid-template-columns:repeat(4,1fr);
+}
+.stat{padding:1.75rem 0 1.75rem 2rem;border-right:1px solid var(--rule)}
+.stat:first-child{padding-left:0}
+.stat:last-child{border-right:none}
+.stat-n{font-family:var(--ff-d);font-size:2.75rem;font-weight:800;line-height:1;color:var(--amber)}
+.stat-l{font-size:.8125rem;color:var(--muted);font-weight:500;margin-top:.2rem;letter-spacing:.02em}
+@media(max-width:680px){
+  .stats-inner{grid-template-columns:repeat(2,1fr)}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(3){border-top:1px solid var(--rule);border-right:1px solid var(--rule)}
+  .stat:nth-child(4){border-top:1px solid var(--rule)}
+}
+
+/* ═══════════════════════ SECTION WRAPPERS ═══════════════════════ */
+.w-depth{background:var(--depth)}
+.w-ink{background:var(--ink)}
+.w-surf{background:var(--surf);border-top:1px solid var(--rule)}
+.section{max-width:1300px;margin:0 auto;padding:5.5rem 1.5rem}
+.sh{margin-bottom:3.5rem}
+.eyebrow{
+  display:flex;align-items:center;gap:.6rem;
+  font-size:.7rem;font-weight:600;letter-spacing:.12em;
+  color:var(--amber);text-transform:uppercase;margin-bottom:.875rem;
+}
+.eyebrow::before{content:'';display:inline-block;width:14px;height:1px;background:var(--amber)}
+h2.st{
+  font-family:var(--ff-d);font-size:clamp(2.25rem,5vw,3.5rem);
+  font-weight:800;line-height:1;letter-spacing:-.01em;text-transform:uppercase;
+  max-width:580px;
+}
+.ss{margin-top:.875rem;max-width:500px;color:var(--muted);font-size:1rem;line-height:1.65}
+hr.div{border:none;border-top:1px solid var(--rule)}
+
+/* ═══════════════════════ SERVICES ═══════════════════════ */
+.svc-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:1px;border:1px solid var(--rule);border-radius:var(--r-md);overflow:hidden;
+}
+.svc{
+  background:var(--surf);padding:2rem;position:relative;
+  transition:background .2s;overflow:hidden;
+}
+.svc::after{
+  content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+  background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .3s;
+}
+.svc:hover{background:var(--panel)}
+.svc:hover::after{transform:scaleX(1)}
+.svc-icon{
+  width:46px;height:46px;border-radius:var(--r);
+  background:rgba(232,160,32,.1);border:1px solid rgba(232,160,32,.2);
+  display:flex;align-items:center;justify-content:center;margin-bottom:1.25rem;
+}
+.svc-icon svg{width:22px;height:22px;stroke:var(--amber);fill:none;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+.svc h3{font-family:var(--ff-d);font-size:1.2rem;font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-bottom:.5rem}
+.svc p{font-size:.875rem;color:var(--muted);line-height:1.6}
+@media(max-width:1024px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.svc-grid{grid-template-columns:1fr}}
+
+/* ═══════════════════════ PROJECTS ═══════════════════════ */
+.proj-top{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:1.5rem;margin-bottom:2.5rem}
+.filter{display:flex;gap:.5rem;flex-wrap:wrap}
+.fbtn{
+  padding:.4rem 1rem;border:1px solid var(--rule);background:transparent;
+  color:var(--muted);font-size:.8125rem;font-weight:500;border-radius:100px;
+  cursor:pointer;transition:all .2s;letter-spacing:.02em;
+}
+.fbtn.on,.fbtn:hover{background:var(--amber);border-color:var(--amber);color:var(--ink)}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.pcard{
+  border-radius:var(--r-md);overflow:hidden;background:var(--surf);
+  border:1px solid var(--rule);transition:transform .2s,border-color .2s;cursor:pointer;
+}
+.pcard:hover{transform:translateY(-4px);border-color:rgba(232,160,32,.35)}
+.pthumb{height:196px;position:relative;overflow:hidden}
+.pthumb::before{
+  content:'';position:absolute;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:22px 22px;
+}
+.pt-res{background:linear-gradient(135deg,#162435 0%,#1e3550 100%)}
+.pt-com{background:linear-gradient(135deg,#122012 0%,#1c3a1c 100%)}
+.pt-ren{background:linear-gradient(135deg,#241410 0%,#3a2510 100%)}
+.pt-civ{background:linear-gradient(135deg,#141225 0%,#1e1a40 100%)}
+.pthumb-ic{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.pthumb-ic svg{width:46px;height:46px;stroke:rgba(255,255,255,.12);fill:none;stroke-width:1}
+.pbadge{
+  position:absolute;top:1rem;left:1rem;
+  font-size:.6875rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:.25rem .6rem;border-radius:100px;border:1px solid;
+}
+.pb-res{background:rgba(50,100,180,.25);border-color:rgba(100,150,230,.35);color:#90b8f0}
+.pb-com{background:rgba(50,160,90,.25);border-color:rgba(80,200,120,.35);color:#80d890}
+.pb-ren{background:rgba(200,120,40,.25);border-color:rgba(240,160,60,.35);color:var(--amber)}
+.pb-civ{background:rgba(140,80,200,.25);border-color:rgba(180,120,240,.35);color:#c090f0}
+.pyear{position:absolute;bottom:.875rem;right:1rem;font-size:.75rem;color:rgba(255,255,255,.35);font-family:var(--ff-d);font-weight:600;letter-spacing:.06em}
+.pinfo{padding:1.25rem}
+.pname{font-family:var(--ff-d);font-size:1.1rem;font-weight:700;text-transform:uppercase;letter-spacing:.02em;margin-bottom:.35rem}
+.ploc{font-size:.8125rem;color:var(--muted);display:flex;align-items:center;gap:.35rem}
+.ploc svg{width:11px;height:11px;stroke:var(--dim);fill:none;stroke-width:2;flex-shrink:0}
+@media(max-width:1024px){.proj-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.proj-grid{grid-template-columns:1fr}}
+
+/* ═══════════════════════ ANALYTICS ═══════════════════════ */
+.anal-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3.5rem}
+.acard{background:var(--surf);border:1px solid var(--rule);border-radius:var(--r-md);padding:1.75rem}
+.acard.fw{grid-column:1/-1}
+.act{font-family:var(--ff-d);font-size:.875rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:1.5rem}
+
+/* sat */
+.sat-wrap{display:flex;align-items:center;gap:2rem}
+.sat-chart{position:relative;flex-shrink:0;width:160px;height:160px}
+.sat-score{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.sc-n{font-family:var(--ff-d);font-size:2.5rem;font-weight:800;line-height:1;color:var(--amber)}
+.sc-l{font-size:.6875rem;color:var(--dim);text-transform:uppercase;letter-spacing:.08em;margin-top:.2rem}
+.sat-rows{flex:1}
+.dr{display:flex;align-items:center;gap:.7rem;margin-bottom:.6rem}
+.dr-s{font-size:.75rem;color:var(--amber);flex-shrink:0;width:62px}
+.dr-bg{flex:1;height:5px;background:var(--rule);border-radius:100px;overflow:hidden}
+.dr-b{height:100%;border-radius:100px;background:var(--amber);transition:width 1.2s ease-out}
+.dr-c{font-size:.75rem;color:var(--muted);flex-shrink:0;width:18px;text-align:right}
+.rating-row{display:flex;align-items:flex-end;gap:1rem;margin-top:1.25rem}
+.r-big{font-family:var(--ff-d);font-size:3.5rem;font-weight:800;line-height:1;color:var(--white)}
+.r-stars{display:flex;flex-direction:column;gap:.2rem;padding-bottom:.35rem}
+.stars{display:flex;gap:.2rem}
+.star-svg{width:14px;height:14px;fill:var(--amber)}
+.star-svg.e{fill:var(--rule)}
+.r-ct{font-size:.75rem;color:var(--muted);margin-top:2px}
+.chart-h{position:relative;height:230px}
+@media(max-width:760px){
+  .anal-grid{grid-template-columns:1fr}
+  .acard.fw{grid-column:1}
+  .sat-wrap{flex-direction:column;align-items:flex-start}
+}
+
+/* ═══════════════════════ TESTIMONIALS ═══════════════════════ */
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.tcard{
+  background:var(--surf);border:1px solid var(--rule);border-radius:var(--r-md);
+  padding:1.75rem;position:relative;transition:border-color .2s;
+}
+.tcard:hover{border-color:rgba(232,160,32,.3)}
+.tqm{
+  font-family:var(--ff-d);font-size:5.5rem;line-height:1;
+  color:rgba(232,160,32,.12);position:absolute;top:.4rem;right:1.25rem;
+  font-weight:900;pointer-events:none;user-select:none;
+}
+.tstars{display:flex;gap:3px;margin-bottom:1rem}
+.tstar{width:15px;height:15px;fill:var(--amber)}
+.tstar.e{fill:var(--rule)}
+.ttext{font-size:.9375rem;line-height:1.65;color:var(--white);margin-bottom:1.5rem}
+.tau{display:flex;align-items:center;gap:.75rem}
+.tav{
+  width:40px;height:40px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ff-d);font-size:1rem;font-weight:800;flex-shrink:0;
+}
+.tn{font-weight:600;font-size:.9375rem}
+.tl{font-size:.8125rem;color:var(--muted)}
+@media(max-width:1024px){.test-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:580px){.test-grid{grid-template-columns:1fr}}
+
+/* ═══════════════════════ ABOUT ═══════════════════════ */
+.abt-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
+.abt-text p{color:var(--muted);font-size:.9375rem;line-height:1.75;margin-bottom:1.25rem}
+.certs{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:2rem}
+.cert{
+  padding:.5rem 1rem;border:1px solid var(--rule);border-radius:var(--r);
+  font-size:.8125rem;font-weight:600;color:var(--muted);display:flex;align-items:center;gap:.4rem;
+}
+.cert svg{width:13px;height:13px;stroke:var(--amber);fill:none;stroke-width:2;stroke-linecap:round}
+.abt-metrics{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.am{background:var(--panel);border:1px solid var(--rule);border-radius:var(--r-md);padding:1.5rem;text-align:center}
+.am.span2{grid-column:1/-1;text-align:left;display:flex;align-items:center;gap:1.5rem}
+.am-n{font-family:var(--ff-d);font-size:2.75rem;font-weight:800;color:var(--amber);line-height:1}
+.am-l{font-size:.8125rem;color:var(--muted);margin-top:.3rem}
+.am-sep{width:1px;background:var(--rule);align-self:stretch;flex-shrink:0}
+.am-p{font-size:.875rem;color:var(--muted);line-height:1.6}
+@media(max-width:1024px){.abt-grid{grid-template-columns:1fr;gap:3rem}}
+
+/* ═══════════════════════ CONTACT ═══════════════════════ */
+.con-grid{display:grid;grid-template-columns:1fr 1.3fr;gap:5rem}
+.con-h{font-family:var(--ff-d);font-size:clamp(2rem,4vw,3rem);font-weight:800;text-transform:uppercase;line-height:1;letter-spacing:-.01em;margin-bottom:1.25rem}
+.con-h .a{color:var(--amber)}
+.con-lead{color:var(--muted);font-size:.9375rem;line-height:1.65;margin-bottom:2rem;max-width:380px}
+.cinfo{display:flex;flex-direction:column;gap:1.25rem}
+.ci{display:flex;align-items:flex-start;gap:.875rem}
+.ci-ic{
+  width:36px;height:36px;border-radius:var(--r);flex-shrink:0;margin-top:2px;
+  background:rgba(232,160,32,.08);border:1px solid rgba(232,160,32,.18);
+  display:flex;align-items:center;justify-content:center;
+}
+.ci-ic svg{width:16px;height:16px;stroke:var(--amber);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.ci-t{font-size:.9375rem;color:var(--muted);line-height:1.5}
+.ci-t strong{display:block;color:var(--white);font-weight:600;font-size:.875rem;margin-bottom:.1rem}
+
+/* form */
+.form{display:flex;flex-direction:column;gap:1rem}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.fg{display:flex;flex-direction:column;gap:.35rem}
+.fl{font-size:.8125rem;font-weight:500;color:var(--muted);letter-spacing:.02em}
+.fi,.fs,.fta{
+  background:var(--panel);border:1px solid var(--rule);border-radius:var(--r);
+  padding:.75rem 1rem;color:var(--white);font-size:.9375rem;
+  transition:border-color .2s;outline:none;width:100%;
+}
+.fi:focus,.fs:focus,.fta:focus{border-color:var(--amber)}
+.fi::placeholder,.fta::placeholder{color:var(--dim)}
+.fs{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%235A617A' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .875rem center;padding-right:2.25rem}
+.fs option{background:var(--panel);color:var(--white)}
+.fta{resize:vertical;min-height:110px}
+.fsub{
+  background:var(--amber);color:var(--ink);font-weight:700;font-size:.9375rem;
+  padding:.875rem 2rem;border:none;border-radius:var(--r);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:.5rem;
+  transition:background .2s,transform .15s;letter-spacing:.02em;margin-top:.25rem;
+}
+.fsub:hover{background:var(--gold);transform:translateY(-1px)}
+.fsub svg{width:16px;height:16px;stroke:var(--ink);fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:1024px){.con-grid{grid-template-columns:1fr;gap:3rem}}
+@media(max-width:460px){.frow{grid-template-columns:1fr}}
+
+/* ═══════════════════════ FOOTER ═══════════════════════ */
+.footer{background:var(--ink);border-top:1px solid var(--rule);padding:3rem 0 0}
+.footer-inner{max-width:1300px;margin:0 auto;padding:0 1.5rem}
+.fg4{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:3rem;padding-bottom:3rem}
+.fbrand p{font-size:.875rem;color:var(--muted);line-height:1.65;margin-top:1rem;max-width:275px}
+.soc{display:flex;gap:.6rem;margin-top:1.25rem}
+.sl{
+  width:31px;height:31px;border:1px solid var(--rule);border-radius:var(--r);
+  display:flex;align-items:center;justify-content:center;transition:all .2s;
+}
+.sl:hover{border-color:var(--amber);background:rgba(232,160,32,.08)}
+.sl svg{width:14px;height:14px;stroke:var(--muted);fill:none;stroke-width:1.75}
+.sl:hover svg{stroke:var(--amber)}
+.fc-t{font-family:var(--ff-d);font-size:.875rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--white);margin-bottom:1.25rem}
+.fl-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.fl-list a{font-size:.875rem;color:var(--muted);transition:color .2s}
+.fl-list a:hover{color:var(--white)}
+.fl-list span{font-size:.875rem;color:var(--muted)}
+.foot-bot{border-top:1px solid var(--rule);padding:1.5rem 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.foot-bot p{font-size:.8125rem;color:var(--dim)}
+.foot-bot em{color:var(--amber);font-style:normal}
+@media(max-width:1024px){.fg4{grid-template-columns:1fr 1fr}}
+@media(max-width:580px){.fg4{grid-template-columns:1fr;gap:2rem}.foot-bot{flex-direction:column;align-items:flex-start}}
+
+/* ═══════════════════════ WHATSAPP FLOAT ═══════════════════════ */
+.wa{
+  position:fixed;bottom:calc(1.5rem + env(safe-area-inset-bottom,0px));right:1.5rem;
+  z-index:50;width:52px;height:52px;background:#25D366;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 4px 16px rgba(37,211,102,.4);
+  transition:transform .2s,box-shadow .2s;cursor:pointer;
+}
+.wa:hover{transform:scale(1.1);box-shadow:0 6px 24px rgba(37,211,102,.5)}
+.wa svg{width:27px;height:27px;fill:white}
+
+/* ═══════════════════════ SCROLL FX ═══════════════════════ */
+.fi-el{opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.fi-el.vis{opacity:1;transform:translateY(0)}
+
+/* ═══════════════════════ MOBILE TWEAKS ═══════════════════════ */
+@media(max-width:580px){
+  .section{padding:4rem 1.5rem}
+  h1.hero-h1{font-size:clamp(3rem,14vw,4.5rem)}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════ NAV ══════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      <div class="logo-mark">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      </div>
+      <span class="logo-name">VUXA <em>PC</em></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#analytics">Insights</a></li>
+      <li><a href="#about">About</a></li>
+      <a href="#contact" class="nav-cta">Get a Quote</a>
+    </ul>
+    <div class="hamburger" id="hbg" onclick="toggleNav()">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════ HERO ══════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-body">
+    <div class="hero-eyebrow">Pretoria · Gauteng · South Africa</div>
+    <h1 class="hero-h1">
+      Building<br>
+      <span class="a">Pretoria's</span><br>
+      Future
+    </h1>
+    <p class="hero-sub">From ground-breaking to handover — Vuxa Project &amp; Construction delivers quality homes, commercial spaces, and infrastructure across Pretoria and Gauteng. On time. Within budget.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn btn-p">
+        Get a Free Quote
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+      <a href="#projects" class="btn btn-s">View Our Work</a>
+    </div>
+  </div>
+  <div class="stats-strip">
+    <div class="stats-inner">
+      <div class="stat"><div class="stat-n" id="cnt1">50+</div><div class="stat-l">Projects Completed</div></div>
+      <div class="stat"><div class="stat-n">8+</div><div class="stat-l">Years in Business</div></div>
+      <div class="stat"><div class="stat-n">98%</div><div class="stat-l">On-Time Delivery</div></div>
+      <div class="stat"><div class="stat-n">4.8★</div><div class="stat-l">Client Satisfaction</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════ SERVICES ══════════════════════════ -->
+<div class="w-depth" id="services">
+<div class="section">
+  <div class="sh fi-el">
+    <div class="eyebrow">What We Build</div>
+    <h2 class="st">Our Core Services</h2>
+    <p class="ss">From ground-breaking to final inspection — we manage every phase with precision, transparency, and accountability.</p>
+  </div>
+  <div class="svc-grid fi-el">
+    <div class="svc">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <h3>Residential Construction</h3>
+      <p>New homes from single-room additions to full double-storey houses. NHBRC-compliant builds across all Pretoria suburbs — Soshanguve, Mabopane, Pretoria North and beyond.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg></div>
+      <h3>Commercial Development</h3>
+      <p>Offices, retail spaces, warehouses, and mixed-use developments delivered on schedule. Full project documentation and professional oversight from inception to handover.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+      <h3>Renovations &amp; Extensions</h3>
+      <p>Kitchen and bathroom remodels, extensions, internal alterations, and full-property makeovers — handled efficiently with minimal disruption to your household.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <h3>Project Management</h3>
+      <p>End-to-end coordination: contractor sourcing, procurement, scheduling, quality assurance, and client reporting. We manage the complexity so you don't have to.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <h3>Paving &amp; Landscaping</h3>
+      <p>Driveway paving, garden paths, retaining walls, and landscaping. Quality materials matched to Pretoria's climate and soil conditions, properly installed and finished.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="3" y1="15" x2="21" y2="15"/><line x1="9" y1="3" x2="9" y2="21"/><line x1="15" y1="3" x2="15" y2="21"/></svg></div>
+      <h3>Civil &amp; Infrastructure</h3>
+      <p>Earthworks, stormwater drainage, retaining structures, and bulk earthwork projects. CIDB-registered and experienced in public- and private-sector contracts.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════════════════════ PROJECTS ══════════════════════════ -->
+<div class="w-ink" id="projects">
+<div class="section">
+  <div class="proj-top fi-el">
+    <div>
+      <div class="eyebrow">Portfolio</div>
+      <h2 class="st">Recent Projects</h2>
+      <p class="ss" style="margin-top:.6rem">Real builds. Real clients. Real craftsmanship — across Pretoria and Gauteng.</p>
+    </div>
+    <div class="filter">
+      <button class="fbtn on" onclick="filter('all',this)">All</button>
+      <button class="fbtn" onclick="filter('res',this)">Residential</button>
+      <button class="fbtn" onclick="filter('com',this)">Commercial</button>
+      <button class="fbtn" onclick="filter('ren',this)">Renovation</button>
+      <button class="fbtn" onclick="filter('civ',this)">Civil</button>
+    </div>
+  </div>
+  <div class="proj-grid" id="pg">
+
+    <div class="pcard fi-el" data-c="res">
+      <div class="pthumb pt-res">
+        <div class="pthumb-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <span class="pbadge pb-res">Residential</span>
+        <span class="pyear">2024</span>
+      </div>
+      <div class="pinfo">
+        <div class="pname">3-Bedroom Family Home</div>
+        <div class="ploc"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Soshanguve, Pretoria</div>
+      </div>
+    </div>
+
+    <div class="pcard fi-el" data-c="com">
+      <div class="pthumb pt-com">
+        <div class="pthumb-ic"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div>
+        <span class="pbadge pb-com">Commercial</span>
+        <span class="pyear">2024</span>
+      </div>
+      <div class="pinfo">
+        <div class="pname">Office Complex Development</div>
+        <div class="ploc"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Mabopane, Pretoria</div>
+      </div>
+    </div>
+
+    <div class="pcard fi-el" data-c="ren">
+      <div class="pthumb pt-ren">
+        <div class="pthumb-ic"><svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg></div>
+        <span class="pbadge pb-ren">Renovation</span>
+        <span class="pyear">2023</span>
+      </div>
+      <div class="pinfo">
+        <div class="pname">Full Kitchen &amp; Bathroom Remodel</div>
+        <div class="ploc"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Pretoria North</div>
+      </div>
+    </div>
+
+    <div class="pcard fi-el" data-c="res">
+      <div class="pthumb pt-res">
+        <div class="pthumb-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+        <span class="pbadge pb-res">Residential</span>
+        <span class="pyear">2023</span>
+      </div>
+      <div class="pinfo">
+        <div class="pname">Double-Storey Home</div>
+        <div class="ploc"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Pretoria West</div>
+      </div>
+    </div>
+
+    <div class="pcard fi-el" data-c="civ">
+      <div class="pthumb pt-civ">
+        <div class="pthumb-ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg></div>
+        <span class="pbadge pb-civ">Civil</span>
+        <span class="pyear">2023</span>
+      </div>
+      <div class="pinfo">
+        <div class="pname">Stormwater &amp; Paving Project</div>
+        <div class="ploc"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Hammanskraal, Gauteng</div>
+      </div>
+    </div>
+
+    <div class="pcard fi-el" data-c="com">
+      <div class="pthumb pt-com">
+        <div class="pthumb-ic"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div>
+        <span class="pbadge pb-com">Commercial</span>
+        <span class="pyear">2022</span>
+      </div>
+      <div class="pinfo">
+        <div class="pname">Retail Space Fit-out</div>
+        <div class="ploc"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Centurion, Pretoria</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════════════════════ ANALYTICS ══════════════════════════ -->
+<div class="w-depth" id="analytics">
+<div class="section">
+  <div class="sh fi-el">
+    <div class="eyebrow">Performance Insights</div>
+    <h2 class="st">Our Numbers Tell the Story</h2>
+    <p class="ss">Transparency is at the core of how we work. Here's what a decade of building looks like in data.</p>
+  </div>
+  <div class="anal-grid">
+
+    <!-- Satisfaction -->
+    <div class="acard fi-el">
+      <div class="act">Client Satisfaction Score</div>
+      <div class="sat-wrap">
+        <div class="sat-chart">
+          <canvas id="satChart" width="160" height="160"></canvas>
+          <div class="sat-score"><div class="sc-n">97%</div><div class="sc-l">Happy Clients</div></div>
+        </div>
+        <div class="sat-rows">
+          <div class="dr"><div class="dr-s">★★★★★</div><div class="dr-bg"><div class="dr-b" style="width:69%"></div></div><div class="dr-c">24</div></div>
+          <div class="dr"><div class="dr-s">★★★★☆</div><div class="dr-bg"><div class="dr-b" style="width:23%;background:#c5901a"></div></div><div class="dr-c">8</div></div>
+          <div class="dr"><div class="dr-s">★★★☆☆</div><div class="dr-bg"><div class="dr-b" style="width:9%;background:#8a7030"></div></div><div class="dr-c">3</div></div>
+          <div class="dr"><div class="dr-s">★★☆☆☆</div><div class="dr-bg"><div class="dr-b" style="width:0%"></div></div><div class="dr-c">0</div></div>
+          <div class="dr"><div class="dr-s">★☆☆☆☆</div><div class="dr-bg"><div class="dr-b" style="width:0%"></div></div><div class="dr-c">0</div></div>
+          <div class="rating-row">
+            <div class="r-big">4.8</div>
+            <div class="r-stars">
+              <div class="stars">
+                <svg class="star-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg class="star-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg class="star-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg class="star-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                <svg class="star-svg" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              </div>
+              <div class="r-ct">35 Google Reviews</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Project Mix -->
+    <div class="acard fi-el">
+      <div class="act">Project Mix by Category</div>
+      <div class="chart-h"><canvas id="mixChart"></canvas></div>
+    </div>
+
+    <!-- Timeline -->
+    <div class="acard fw fi-el">
+      <div class="act">Project Activity — 2019 to 2024</div>
+      <div class="chart-h" style="height:190px"><canvas id="tlChart"></canvas></div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════ TESTIMONIALS ══════════════════════════ -->
+<div class="w-ink" id="testimonials">
+<div class="section">
+  <div class="sh fi-el">
+    <div class="eyebrow">Client Reviews</div>
+    <h2 class="st">What Our Clients Say</h2>
+    <p class="ss">Straight from the homeowners and businesses we've built for.</p>
+  </div>
+  <div class="test-grid">
+
+    <div class="tcard fi-el">
+      <div class="tqm">"</div>
+      <div class="tstars">
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <p class="ttext">Vuxa built my 3-bedroom house in Soshanguve from foundation to roof. Quality was excellent and they finished within the agreed timeline. I'd recommend them to anyone looking for honest, dependable builders.</p>
+      <div class="tau">
+        <div class="tav" style="background:rgba(50,100,200,.18);color:#90b8f0">TM</div>
+        <div><div class="tn">Thabo Molefe</div><div class="tl">Soshanguve, Pretoria</div></div>
+      </div>
+    </div>
+
+    <div class="tcard fi-el">
+      <div class="tqm">"</div>
+      <div class="tstars">
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <p class="ttext">We contracted Vuxa to renovate our office space in Mabopane. Professional from the first meeting — detailed quote, regular updates, and a result that exceeded our expectations. Will use them again.</p>
+      <div class="tau">
+        <div class="tav" style="background:rgba(50,160,90,.18);color:#80d890">NS</div>
+        <div><div class="tn">Nomsa Sithole</div><div class="tl">Mabopane, Pretoria</div></div>
+      </div>
+    </div>
+
+    <div class="tcard fi-el">
+      <div class="tqm">"</div>
+      <div class="tstars">
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        <svg class="tstar e" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <p class="ttext">Had them pave my driveway and build a small retaining wall. Fair pricing, clean workmanship, and they left the site neat every day. Will definitely use them again for the second phase.</p>
+      <div class="tau">
+        <div class="tav" style="background:rgba(200,120,40,.18);color:var(--amber)">KD</div>
+        <div><div class="tn">Kagiso Dlamini</div><div class="tl">Pretoria North</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+<hr class="div">
+
+<!-- ══════════════════════════ ABOUT ══════════════════════════ -->
+<div class="w-depth" id="about">
+<div class="section">
+  <div class="abt-grid">
+    <div class="abt-text fi-el">
+      <div class="eyebrow">Who We Are</div>
+      <h2 class="st" style="margin-bottom:1.5rem">Built on Trust.<br>Driven by Quality.</h2>
+      <p>Vuxa Project &amp; Construction is a Pretoria-based contractor with deep roots in the communities we serve across Gauteng. We were founded on a simple principle: every client deserves a build that's done right the first time — no shortcuts, no surprises.</p>
+      <p>Our team carries hands-on experience across residential, commercial, and civil construction. We hold all required industry registrations and are committed to fair labour practices and meaningful B-BBEE compliance throughout our supply chain.</p>
+      <p>We serve homeowners, developers, and businesses across Pretoria, Mabopane, Soshanguve, Hammanskraal, and broader Gauteng — with rates that reflect the local market.</p>
+      <div class="certs">
+        <div class="cert"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>CIDB Registered</div>
+        <div class="cert"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>NHBRC Compliant</div>
+        <div class="cert"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>B-BBEE Level 1</div>
+        <div class="cert"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>CSD Registered</div>
+      </div>
+    </div>
+    <div class="abt-metrics fi-el">
+      <div class="am span2">
+        <div><div class="am-n">R15M+</div><div class="am-l">Total project value delivered</div></div>
+        <div class="am-sep"></div>
+        <div class="am-p">From affordable housing to major commercial contracts — we've delivered for every scale and budget across Gauteng.</div>
+      </div>
+      <div class="am"><div class="am-n">50+</div><div class="am-l">Projects completed</div></div>
+      <div class="am"><div class="am-n">8+</div><div class="am-l">Years experience</div></div>
+      <div class="am" style="grid-column:1/-1"><div class="am-n" style="font-size:2.25rem">100%</div><div class="am-l">Locally owned &amp; operated — Pretoria, Gauteng</div></div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════ CONTACT ══════════════════════════ -->
+<div class="w-surf" id="contact">
+<div class="section">
+  <div class="con-grid">
+    <div class="fi-el">
+      <div class="eyebrow">Get in Touch</div>
+      <h2 class="con-h">Start Your <span class="a">Project</span> Today</h2>
+      <p class="con-lead">Tell us about your project and we'll get back to you within 24 hours with a detailed, no-obligation quote.</p>
+      <div class="cinfo">
+        <div class="ci">
+          <div class="ci-ic"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.5 10.81 19.79 19.79 0 01.44 2.18 2 2 0 012.42.03h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0121 14.92v2h.01z"/></svg></div>
+          <div class="ci-t"><strong>Phone / WhatsApp</strong>+27 XX XXX XXXX — available Mon–Sat</div>
+        </div>
+        <div class="ci">
+          <div class="ci-ic"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="ci-t"><strong>Email</strong>info@vuxaconstruction.co.za</div>
+        </div>
+        <div class="ci">
+          <div class="ci-ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="ci-t"><strong>Service Area</strong>Pretoria, Mabopane, Soshanguve, Hammanskraal &amp; Gauteng</div>
+        </div>
+        <div class="ci">
+          <div class="ci-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+          <div class="ci-t"><strong>Response Time</strong>Quote within 24 hours — Monday to Saturday</div>
+        </div>
+      </div>
+    </div>
+    <div class="fi-el">
+      <form class="form" onsubmit="submitForm(event)">
+        <div class="frow">
+          <div class="fg"><label class="fl">First Name</label><input type="text" class="fi" placeholder="Your first name" required></div>
+          <div class="fg"><label class="fl">Last Name</label><input type="text" class="fi" placeholder="Your last name" required></div>
+        </div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Phone Number</label><input type="tel" class="fi" placeholder="+27 XX XXX XXXX" required></div>
+          <div class="fg"><label class="fl">Email Address</label><input type="email" class="fi" placeholder="your@email.com"></div>
+        </div>
+        <div class="fg">
+          <label class="fl">Service Required</label>
+          <select class="fs">
+            <option value="" disabled selected>Select a service…</option>
+            <option>Residential Construction</option>
+            <option>Commercial Development</option>
+            <option>Renovations &amp; Extensions</option>
+            <option>Project Management</option>
+            <option>Paving &amp; Landscaping</option>
+            <option>Civil &amp; Infrastructure</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="frow">
+          <div class="fg"><label class="fl">Location / Suburb</label><input type="text" class="fi" placeholder="e.g. Soshanguve, Pretoria"></div>
+          <div class="fg">
+            <label class="fl">Budget Range</label>
+            <select class="fs">
+              <option value="" disabled selected>Select budget…</option>
+              <option>Under R50 000</option>
+              <option>R50 000 – R200 000</option>
+              <option>R200 000 – R500 000</option>
+              <option>R500 000 – R1 000 000</option>
+              <option>Over R1 000 000</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg"><label class="fl">Project Description</label><textarea class="fta" placeholder="Tell us about your project — size, timeline, specific requirements…"></textarea></div>
+        <button type="submit" class="fsub" id="subBtn">
+          Request a Quote
+          <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════════════════════ FOOTER ══════════════════════════ -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="fg4">
+      <div class="fbrand">
+        <div class="logo">
+          <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#0A0D14" stroke-width="2.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+          <span class="logo-name">VUXA <em>PC</em></span>
+        </div>
+        <p>Pretoria's trusted construction partner — building quality homes, commercial spaces, and civil infrastructure across Gauteng since 2016.</p>
+        <div class="soc">
+          <a href="#" class="sl" aria-label="Facebook"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+          <a href="#" class="sl" aria-label="Instagram"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" class="sl" aria-label="WhatsApp"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></a>
+        </div>
+      </div>
+      <div>
+        <div class="fc-t">Services</div>
+        <ul class="fl-list">
+          <li><a href="#services">Residential Construction</a></li>
+          <li><a href="#services">Commercial Development</a></li>
+          <li><a href="#services">Renovations &amp; Extensions</a></li>
+          <li><a href="#services">Project Management</a></li>
+          <li><a href="#services">Paving &amp; Landscaping</a></li>
+          <li><a href="#services">Civil &amp; Infrastructure</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-t">Company</div>
+        <ul class="fl-list">
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#projects">Projects</a></li>
+          <li><a href="#analytics">Insights</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+          <li><a href="#contact">Get a Quote</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="fc-t">Contact</div>
+        <ul class="fl-list">
+          <li><span>Pretoria, Gauteng, SA</span></li>
+          <li><a href="tel:+27000000000">+27 XX XXX XXXX</a></li>
+          <li><a href="mailto:info@vuxaconstruction.co.za">info@vuxaconstruction.co.za</a></li>
+          <li style="margin-top:.5rem"><span>Mon–Fri: 07:00–17:00<br>Sat: 07:00–13:00</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <p>© 2025 Vuxa Project &amp; Construction (Pty) Ltd. All rights reserved.</p>
+      <p>Pretoria · Gauteng · <em>CIDB Registered</em> · B-BBEE Level 1</p>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp float -->
+<a href="https://wa.me/27000000000" class="wa" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+</a>
+
+<!-- ══════════════════════════ JS ══════════════════════════ -->
+<script>
+/* ── Nav scroll ── */
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 40), {passive:true});
+
+/* ── Mobile menu ── */
+function toggleNav() {
+  document.getElementById('navLinks').classList.toggle('open');
+}
+document.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', () => {
+  document.getElementById('navLinks').classList.remove('open');
+}));
+
+/* ── Scroll animations (single-pass) ── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('vis'), (i % 4) * 90);
+      obs.unobserve(e.target);
+    }
+  });
+}, {threshold: 0.08, rootMargin: '0px 0px -40px 0px'});
+document.querySelectorAll('.fi-el').forEach(el => obs.observe(el));
+
+/* ── Project filter ── */
+function filter(cat, btn) {
+  document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  document.querySelectorAll('.pcard').forEach(c => {
+    c.style.display = (cat === 'all' || c.dataset.c === cat) ? '' : 'none';
+  });
+}
+
+/* ── Chart defaults ── */
+Chart.defaults.color = '#6B7490';
+Chart.defaults.borderColor = '#2D3348';
+Chart.defaults.font.family = "'Inter', sans-serif";
+
+/* 1. Satisfaction donut */
+new Chart(document.getElementById('satChart'), {
+  type: 'doughnut',
+  data: {
+    datasets: [{
+      data: [97, 3],
+      backgroundColor: ['#E8A020', '#2D3348'],
+      borderWidth: 0, hoverOffset: 0
+    }]
+  },
+  options: {
+    cutout: '79%',
+    plugins: {legend:{display:false}, tooltip:{enabled:false}},
+    animation: {duration:1300, easing:'easeOutQuart'}
+  }
+});
+
+/* 2. Project mix (horizontal bar) */
+new Chart(document.getElementById('mixChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Residential', 'Commercial', 'Renovations', 'Civil'],
+    datasets: [{
+      data: [22, 15, 10, 5],
+      backgroundColor: ['rgba(232,160,32,.8)','rgba(80,200,120,.7)','rgba(100,150,230,.7)','rgba(180,120,240,.7)'],
+      borderWidth: 0, borderRadius: 3
+    }]
+  },
+  options: {
+    indexAxis: 'y', responsive: true, maintainAspectRatio: false,
+    plugins: {legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} projects`}}},
+    scales: {
+      x: {beginAtZero:true, grid:{color:'#2D3348'}, ticks:{stepSize:5}},
+      y: {grid:{display:false}, ticks:{font:{size:12}}}
+    },
+    animation: {duration:1000, easing:'easeOutQuart'}
+  }
+});
+
+/* 3. Timeline */
+new Chart(document.getElementById('tlChart'), {
+  type: 'bar',
+  data: {
+    labels: ['2019','2020','2021','2022','2023','2024'],
+    datasets: [{
+      label: 'Projects',
+      data: [4, 6, 9, 13, 11, 10],
+      backgroundColor: 'rgba(232,160,32,.18)',
+      borderColor: '#E8A020',
+      borderWidth: 2, borderRadius: 3,
+      hoverBackgroundColor: 'rgba(232,160,32,.35)'
+    }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins: {legend:{display:false}, tooltip:{callbacks:{label:c=>` ${c.raw} projects`}}},
+    scales: {
+      y: {beginAtZero:true, grid:{color:'#2D3348'}, ticks:{stepSize:5}},
+      x: {grid:{display:false}}
+    },
+    animation: {duration:1000, easing:'easeOutQuart'}
+  }
+});
+
+/* ── Form submit ── */
+function submitForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('subBtn');
+  btn.style.background = '#2DB87A';
+  btn.style.color = '#fff';
+  btn.innerHTML = `✓ Request Sent — We'll call you within 24 hours`;
+  setTimeout(() => {
+    btn.style.background = '';
+    btn.style.color = '';
+    btn.innerHTML = `Request a Quote <svg viewBox="0 0 24 24" width="16" height="16" stroke="#0A0D14" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+  }, 4000);
+}
+</script>
+</body>
+</html>

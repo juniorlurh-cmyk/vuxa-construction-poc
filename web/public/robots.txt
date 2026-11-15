@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://juniorlurh-cmyk.github.io/vuxa-construction-poc/sitemap.xml
