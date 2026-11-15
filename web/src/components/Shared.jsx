@@ -61,3 +61,19 @@ export function Heading({ eyebrow, title, aside }) {
     </div>
   );
 }
+
+export function Faq({ items }) {
+  return (
+    <div className="faq">
+      {items.map((f) => (
+        <details className="faq-item" key={f.q}>
+          <summary>
+            {f.q}
+            <Icon name="chevron" />
+          </summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+  );
+}

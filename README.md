@@ -34,6 +34,11 @@ web/                      Vite + React app
 - Service-area list (base + typical Pretoria spread)
 - Insights demand scores (indicative only)
 
+**Representative/placeholder:** service and area imagery (Unsplash + licensed
+Commons area shots), the traffic-data-collection gallery, and the FAQ content
+on `/work` — all clearly labelled as representative until the owner's own
+site photography is available.
+
 **Known unverified claims from the v1 prototype — NOT used:**
 - "50+ projects", "8+ years", "R15M+ delivered", "since 2016"
 - "CIDB Registered / NHBRC / B-BBEE Level 1 / CSD" (a `note` tells owners

@@ -1,6 +1,7 @@
 import FadeIn from '../components/FadeIn';
-import { PageHero, Callout } from '../components/Shared';
-import { SERVICES } from '../data/services';
+import { PageHero, Callout, Heading, Faq } from '../components/Shared';
+import Gallery from '../components/Lightbox';
+import { SERVICES, TRAFFIC_GALLERY, FAQS } from '../data/services';
 
 const AREAS = [
   {
@@ -94,6 +95,40 @@ export default function Work() {
               </FadeIn>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="section white">
+        <div className="container">
+          <FadeIn>
+            <Heading
+              eyebrow="The speciality"
+              title={<>Traffic data collection, <em>done properly.</em></>}
+              aside="The one line of work clients singled out publicly for praise — click a photo to view it larger."
+            />
+          </FadeIn>
+          <FadeIn>
+            <Gallery items={TRAFFIC_GALLERY} columns={2} />
+          </FadeIn>
+          <p className="note">
+            Representative imagery of the kind of sites traffic counts are run
+            on — actual survey-site photography replaces these once compiled.
+          </p>
+        </div>
+      </section>
+
+      <section className="section tint">
+        <div className="container">
+          <FadeIn>
+            <Heading
+              eyebrow="Before you ask"
+              title={<>Common <em>questions.</em></>}
+              aside="Honest answers — anything else, just ask."
+            />
+          </FadeIn>
+          <FadeIn>
+            <Faq items={FAQS} />
+          </FadeIn>
         </div>
       </section>
 
