@@ -17,6 +17,8 @@ export const SITE = {
   reviewCount: '8',
   mapsUrl:
     'https://www.google.com/maps/search/?api=1&query=Vuxa+project+and+construction+99+Bourke+Street+Sunnyside+Pretoria',
+  mapsEmbed:
+    'https://maps.google.com/maps?q=99+Bourke+Street,+Sunnyside,+Pretoria+0002&t=&z=15&ie=UTF8&iwloc=&output=embed',
 };
 
 // Actual review excerpts from the public Google listing (Oct 2022).

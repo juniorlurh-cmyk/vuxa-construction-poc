@@ -85,6 +85,26 @@ export default function Contact() {
             </form>
           </FadeIn>
         </div>
+        <FadeIn>
+          <div className="map-wrap">
+            <iframe
+              src={SITE.mapsEmbed}
+              title="Vuxa Project & Construction — 99 Bourke Street, Sunnyside, Pretoria"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
+            />
+            <div className="map-bar">
+              <div>
+                <b>{SITE.address}</b>
+                <span style={{ display: 'block' }}>{SITE.hours}</span>
+              </div>
+              <a className="btn dark" href={SITE.mapsUrl} target="_blank" rel="noopener noreferrer">
+                <Icon name="pin" /> Open in Maps
+              </a>
+            </div>
+          </div>
+        </FadeIn>
       </section>
     </>
   );
